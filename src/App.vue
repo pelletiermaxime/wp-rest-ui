@@ -6,9 +6,15 @@
       </div>
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-          <li><a v-link="'/posts'">Posts</a></li>
-          <li><a v-link="'/users'">Users</a></li>
-          <li><a v-link="'/login'">Login</a></li>
+          <li v-link-active>
+            <a v-link="{ path: '/posts', activeClass: 'active' }">Posts</a>
+          </li>
+          <li v-link-active>
+            <a v-link="{ path: '/users', activeClass: 'active' }">Users</a>
+          </li>
+          <li v-link-active>
+            <a v-link="{ path: '/login', activeClass: 'active' }">Login</a>
+          </li>
         </ul>
       </div>
     </div>
