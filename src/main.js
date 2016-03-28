@@ -10,7 +10,7 @@ import Login from './components/Login.vue'
 Vue.use(VueResource)
 Vue.use(VueRouter)
 
-var router = new VueRouter()
+export var router = new VueRouter()
 
 router.map({
   '/posts': {

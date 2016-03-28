@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import {router} from '../main'
+
 export default {
   data () {
     return {
@@ -44,9 +46,8 @@ export default {
       })
       .then(function (success_response) {
         console.log('SUCCESS!')
-        console.log(success_response)
-        console.log(success_response.data.token)
         localStorage.setItem('id_token', success_response.data.token)
+        router.go(window.history.back())
       }, function (error_response) {
         console.log('ERROR!')
         console.error(error_response)
@@ -55,7 +56,12 @@ export default {
     },
 
     getAuthHeader () {
-      return 'Bearer ' + localStorage.getItem('id_token')
+      var token = localStorage.getItem('id_token')
+      if (token == null) {
+        return ''
+      }
+
+      return 'Bearer ' + token
     }
 
   }
