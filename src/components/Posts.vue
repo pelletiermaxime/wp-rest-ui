@@ -6,7 +6,8 @@
 
 <template>
   <h1>Posts list</h1>
-  <table class="table table-striped table-bordered">
+  <table class="table table-striped table-bordered" v-paginate:5="posts">
+  <!-- <table class="table table-striped table-bordered"> -->
     <tr>
       <th>Title</th>
       <th>Link</th>
@@ -22,36 +23,50 @@
       <td><span class="delete" @click="deletePost($index, post.id)">&times;</span></td>
     </tr>
   </table>
+  <!-- links -->
+  <ul>
+    <li v-for="postLink in postsLinks">
+      <a @click="changePostsPage(postLink)">
+        {{ postLink + 1 }}
+      </a>
+    </li>
+  </ul>
 </template>
 
 <script>
+import VuePaginate from 'vue-paginate'
+
 export default {
   data () {
     return {
       posts: [
         // {
-        //   title: {rendered: 'Pomme'},
+        //   title: {rendered: 'Pomme 1'},
         //   link: 'http://link.com',
         //   author: 'Max',
         //   excerpt: {rendered: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, ipsam.'}
-        // }
+        // },
+        // {title: {rendered: 'Pomme 2'}},
+        // {title: {rendered: 'Pomme 3'}},
+        // {title: {rendered: 'Pomme 4'}},
+        // {title: {rendered: 'Pomme 5'}},
+        // {title: {rendered: 'Pomme 6'}},
       ],
       users: []
     }
   },
 
   ready () {
-    this.$http.get('http://wp-rest.local/wp-json/wp/v2/posts', {
-      // per_page: -1,
+    this.$http.get('wp/v2/posts', {
       order: 'asc',
       filter: {posts_per_page: -1}
     })
       .then(function (response) {
         this.posts = response.data
+        // this.refreshPostsPage
       }
     )
-    this.$http.get('http://wp-rest.local/wp-json/wp/v2/users', {
-      // per_page: -1,
+    this.$http.get('wp/v2/users', {
       order: 'asc',
       filter: {posts_per_page: -1}
     })
@@ -63,7 +78,7 @@ export default {
 
   methods: {
     deletePost (index, post_id) {
-      this.$http.delete('http://wp-rest.local/wp-json/wp/v2/posts/' + post_id)
+      this.$http.delete('wp/v2/posts/' + post_id)
       .then(function (success_response) {
         this.posts.splice(index, 1)
         console.log('SUCCESS!')

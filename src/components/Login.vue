@@ -40,7 +40,7 @@ export default {
 
   methods: {
     login () {
-      this.$http.post('http://wp-rest.local/wp-json/jwt-auth/v1/token', {
+      this.$http.post('jwt-auth/v1/token', {
         username: this.credentials.username,
         password: this.credentials.password
       })
