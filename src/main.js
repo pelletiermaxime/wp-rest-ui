@@ -20,9 +20,13 @@ router.map({
   }
 })
 
-// new Vue({
-//   el: 'body',
-//   components: { App }
-// })
+Vue.http.interceptors.push({
+  response: function (response) {
+    if (response.status === 401) { // Unauthorized
+      router.go('/login')
+    }
+    return response
+  }
+})
 
 router.start(App, 'body')

@@ -4,7 +4,7 @@
   "author": "Maxime Pelletier <pelletiermaxime@gmail.com>",
   "scripts": {
     "watchify": "watchify -vd -p browserify-hmr -e src/main.js -o dist/build.js",
-    "serve": "http-server -c 1 -a localhost",
+    "serve": "http-server -c 1 -a localhost --cors",
     "dev": "npm-run-all --parallel watchify serve",
     "build": "cross-env NODE_ENV=production browserify -e src/main.js | uglifyjs -c warnings=false -m > dist/build.js",
     "lint": "eslint --ext .js,.vue src test/unit",

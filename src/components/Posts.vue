@@ -1,3 +1,9 @@
+<style lang="stylus">
+.delete
+  color: red
+  font-size: 22px
+</style>
+
 <template>
   <div class="hello">
     <h1>Posts list</h1>
@@ -7,12 +13,14 @@
         <th>Link</th>
         <th>Author</th>
         <th>Content excerpt</th>
+        <th>Actions</th>
       </tr>
       <tr v-for="post in posts">
         <td>{{ post.title.rendered }}</td>
         <td>{{ post.link }}</td>
         <td><span v-for="user in users|filterBy post.author in 'id'">{{ user.name }}</span></td>
         <td>{{ post.excerpt.rendered }}</td>
+        <td><span class="delete" @click="deletePost($index, post.id)">&times;</span></td>
       </tr>
     </table>
   </div>
@@ -53,6 +61,20 @@ export default {
         this.users = response.data
       }
     )
+  },
+
+  methods: {
+    deletePost (index, post_id) {
+      this.$http.delete('http://wp-rest.local/wp-json/wp/v2/posts/' + post_id)
+      .then(function (success_response) {
+        this.posts.splice(index, 1)
+        console.log('SUCCESS!')
+        console.log(success_response)
+      }, function (error_response) {
+        console.log('ERROR!')
+        console.log(error_response)
+      })
+    }
   }
 }
 </script>
