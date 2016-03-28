@@ -3,24 +3,30 @@
     <h2>Log In</h2>
     <div class="alert alert-danger" v-if="error">
       <p>{{ error.message }}</p>
+      <p v-if="$login.username.required">Username is required.</p>
+      <p v-if="$login.password.required">Password is required.</p>
     </div>
-    <div class="form-group">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Enter your username"
-        v-model="credentials.username"
-      >
-    </div>
-    <div class="form-group">
-      <input
-        type="password"
-        class="form-control"
-        placeholder="Enter your password"
-        v-model="credentials.password"
-      >
-    </div>
-    <button class="btn btn-primary" @click="login()">Login</button>
+    <validator name="login">
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter your username"
+          v-model="credentials.username"
+          v-validate:username="{required: true}"
+        >
+      </div>
+      <div class="form-group">
+        <input
+          type="password"
+          class="form-control"
+          placeholder="Enter your password"
+          v-model="credentials.password"
+          v-validate:password="['required']"
+        >
+      </div>
+      <button class="btn btn-primary" @click="login()" v-if="$login.valid">Login</button>
+    </validator>
   </div>
 </template>
 

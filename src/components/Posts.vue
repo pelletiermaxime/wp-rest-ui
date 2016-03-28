@@ -6,8 +6,8 @@
 
 <template>
   <h1>Posts list</h1>
-  <table class="table table-striped table-bordered" v-paginate:5="posts">
-  <!-- <table class="table table-striped table-bordered"> -->
+  <!-- <table class="table table-striped table-bordered" v-paginate:5="posts"> -->
+  <table class="table table-striped table-bordered">
     <tr>
       <th>Title</th>
       <th>Link</th>
