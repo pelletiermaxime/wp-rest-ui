@@ -39,4 +39,4 @@ Vue.http.interceptors.push({
   }
 })
 
-router.start(App, 'body')
+router.start(App, '#app')

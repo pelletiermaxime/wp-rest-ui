@@ -5,25 +5,23 @@
 </style>
 
 <template>
-  <div class="hello">
-    <h1>Posts list</h1>
-    <table border="1">
-      <tr>
-        <th>Title</th>
-        <th>Link</th>
-        <th>Author</th>
-        <th>Content excerpt</th>
-        <th>Actions</th>
-      </tr>
-      <tr v-for="post in posts">
-        <td>{{ post.title.rendered }}</td>
-        <td>{{ post.link }}</td>
-        <td><span v-for="user in users|filterBy post.author in 'id'">{{ user.name }}</span></td>
-        <td>{{ post.excerpt.rendered }}</td>
-        <td><span class="delete" @click="deletePost($index, post.id)">&times;</span></td>
-      </tr>
-    </table>
-  </div>
+  <h1>Posts list</h1>
+  <table class="table table-striped table-bordered">
+    <tr>
+      <th>Title</th>
+      <th>Link</th>
+      <th>Author</th>
+      <th>Content excerpt</th>
+      <th>Actions</th>
+    </tr>
+    <tr v-for="post in posts">
+      <td>{{ post.title.rendered }}</td>
+      <td>{{ post.link }}</td>
+      <td><span v-for="user in users|filterBy post.author in 'id'">{{ user.name }}</span></td>
+      <td>{{ post.excerpt.rendered }}</td>
+      <td><span class="delete" @click="deletePost($index, post.id)">&times;</span></td>
+    </tr>
+  </table>
 </template>
 
 <script>
