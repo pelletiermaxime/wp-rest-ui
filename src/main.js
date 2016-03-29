@@ -30,14 +30,12 @@ router.map({
 
 Vue.http.options.root = 'http://wp-rest.local/wp-json'
 // Vue.http.options.root = 'http://demo.wp-api.org/wp-json'
+
+Login.methods.checkAuth()
+
 Vue.http.headers.common['Authorization'] = Login.methods.getAuthHeader()
 
 Vue.http.interceptors.push({
-  request: function (request) {
-    console.log(request)
-    return request
-  },
-
   response: function (response) {
     if (response.status === 401) { // Unauthorized
       router.go('/login')

@@ -81,10 +81,7 @@ export default {
       this.$http.delete('wp/v2/posts/' + post_id)
       .then(function (success_response) {
         this.posts.splice(index, 1)
-        console.log('SUCCESS!')
-        console.log(success_response)
       }, function (error_response) {
-        console.log('ERROR!')
         console.log(error_response)
       })
     }

@@ -22,14 +22,12 @@ export default {
 
   ready () {
     this.$http.get('wp/v2/users', {
-      // per_page: -1,
       order: 'asc',
-      filter: {posts_per_page: -1}
+      filter: {posts_per_page: -1},
     })
       .then(function (response) {
         this.users = response.data
-      }
-    )
+      })
   }
 }
 </script>

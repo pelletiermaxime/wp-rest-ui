@@ -40,8 +40,14 @@ export default {
         username: '',
         password: ''
       },
-      error: ''
+      error: '',
+      loggedIn: false,
+      user: {},
     }
+  },
+
+  ready () {
+    this.checkAuth()
   },
 
   methods: {
@@ -52,7 +58,13 @@ export default {
       })
       .then(function (success_response) {
         console.log('SUCCESS!')
-        localStorage.setItem('id_token', success_response.data.token)
+
+        this.setUserByEmail(success_response.data.user_email)
+
+        this.loggedIn = true
+
+        localStorage.id_token = success_response.data.token
+
         router.go(window.history.back())
       }, function (error_response) {
         console.log('ERROR!')
@@ -61,8 +73,29 @@ export default {
       })
     },
 
+    checkAuth () {
+      var token = localStorage.id_token
+      var current_user = localStorage.current_user
+
+      if (token != null && current_user != null) {
+        this.loggedIn = true
+        this.user = JSON.parse(current_user)
+      }
+    },
+
+    setUserByEmail (email) {
+      this.$http.get('wp/v2/users', {
+        search: email,
+      })
+        .then(function (response) {
+          this.user = response.data[0]
+          localStorage.current_user = JSON.stringify(response.data[0])
+        })
+    },
+
     getAuthHeader () {
-      var token = localStorage.getItem('id_token')
+      var token = localStorage.id_token
+
       if (token == null) {
         return ''
       }
