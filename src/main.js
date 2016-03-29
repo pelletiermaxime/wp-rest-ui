@@ -5,9 +5,10 @@ import VueRouter from 'vue-router'
 import VueValidator from 'vue-validator'
 
 import App from './App.vue'
+import Login from './components/Login.vue'
+import PostEdit from './components/PostEdit.vue'
 import Posts from './components/Posts.vue'
 import Users from './components/Users.vue'
-import Login from './components/Login.vue'
 
 Vue.use(VuePaginate)
 Vue.use(VueResource)
@@ -25,6 +26,9 @@ router.map({
   },
   '/login': {
     component: Login
+  },
+  '/post-edit/:post_id': {
+    component: PostEdit
   }
 })
 

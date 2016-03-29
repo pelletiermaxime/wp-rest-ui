@@ -20,7 +20,10 @@
       <td>{{ post.link }}</td>
       <td><span v-for="user in users|filterBy post.author in 'id'">{{ user.name }}</span></td>
       <td>{{ post.excerpt.rendered }}</td>
-      <td><span class="delete" @click="deletePost($index, post.id)">&times;</span></td>
+      <td>
+        <span class="delete" @click="deletePost($index, post.id)">&times;</span>
+        <a v-link="{ path: '/post-edit/' + post.id }">Edit</a>
+      </td>
     </tr>
   </table>
   <!-- links -->
