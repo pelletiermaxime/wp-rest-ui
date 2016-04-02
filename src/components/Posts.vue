@@ -6,8 +6,7 @@
 
 <template>
   <h1>Posts list</h1>
-  <!-- <table class="table table-striped table-bordered" v-paginate:5="posts"> -->
-  <table class="table table-striped table-bordered">
+  <table class="table table-striped table-bordered" v-paginate:8="posts">
     <tr>
       <th>Title</th>
       <th>Link</th>
@@ -27,13 +26,15 @@
     </tr>
   </table>
   <!-- links -->
-  <ul>
-    <li v-for="postLink in postsLinks">
-      <a @click="changePostsPage(postLink)">
-        {{ postLink + 1 }}
-      </a>
-    </li>
-  </ul>
+  <nav>
+    <ul class="pagination">
+      <li v-for="postLink in postsLinks" :class="{ 'active': (postLink + 1 == currentPostsPage())}">
+        <a @click="changePostsPage(postLink)">
+          {{ postLink + 1 }}
+        </a>
+      </li>
+    </ul>
+  </nav>
 </template>
 
 <script>
@@ -50,10 +51,6 @@ export default {
         //   excerpt: {rendered: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, ipsam.'}
         // },
         // {title: {rendered: 'Pomme 2'}},
-        // {title: {rendered: 'Pomme 3'}},
-        // {title: {rendered: 'Pomme 4'}},
-        // {title: {rendered: 'Pomme 5'}},
-        // {title: {rendered: 'Pomme 6'}},
       ],
       users: []
     }
@@ -65,8 +62,7 @@ export default {
       filter: {posts_per_page: -1}
     })
       .then(function (response) {
-        this.posts = response.data
-        // this.refreshPostsPage
+        this.fullPosts = response.data
       }
     )
     this.$http.get('wp/v2/users', {
