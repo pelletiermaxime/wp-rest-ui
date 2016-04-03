@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "vue": "^1.0.0",
-    "vue-paginate": "^1.1.0",
+    "vue-paginate": "1.2.0",
     "vue-resource": "^0.7.0",
     "vue-router": "^0.7.11",
     "vue-validator": "^2.0.0-beta.5"

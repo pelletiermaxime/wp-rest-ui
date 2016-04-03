@@ -6,7 +6,7 @@
 
 <template>
   <h1>Posts list</h1>
-  <table class="table table-striped table-bordered" v-paginate:8="posts">
+  <table class="table table-striped" v-paginate:8="posts">
     <tr>
       <th>Title</th>
       <th>Link</th>
@@ -21,14 +21,14 @@
       <td>{{ post.excerpt.rendered }}</td>
       <td>
         <span class="delete" @click="deletePost($index, post.id)">&times;</span>
-        <a v-link="{ path: '/post-edit/' + post.id }">Edit</a>
+        <a v-link="{ path: '/post-edit/' + post.id }" class="pull-right">Edit</a>
       </td>
     </tr>
   </table>
   <!-- links -->
   <nav>
     <ul class="pagination">
-      <li v-for="postLink in postsLinks" :class="{ 'active': (postLink + 1 == currentPostsPage())}">
+      <li v-for="postLink in postsLinks" :class="{ 'active': (postLink == currentPostsPage)}">
         <a @click="changePostsPage(postLink)">
           {{ postLink + 1 }}
         </a>
